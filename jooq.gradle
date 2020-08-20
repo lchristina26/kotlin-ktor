@@ -15,25 +15,9 @@ jooq {
             database {
                 inputSchema = "public"
                 excludes = "flyway_schema_history"
-                forcedTypes {
-                    forcedType {
-                        name = 'varchar'
-                        expression = '.*'
-                        types = 'JSONB?'
-                    }
-                    forcedType {
-                        name = 'varchar'
-                        expression = '.*'
-                        types = 'INET'
-                    }
-                }
             }
             generate {
-                relations = true
-                deprecated = false
-                records = true
-                immutablePojos = true
-                fluentSetters = true
+                generatedAnnotation = false
             }
             target {
                 packageName = 'com.task.jooq'
@@ -43,3 +27,4 @@ jooq {
 }
 
 compileKotlin.dependsOn(generateTaskDbJooqSchemaSource)
+generateTaskDbJooqSchemaSource.dependsOn(flywayMigrate)
