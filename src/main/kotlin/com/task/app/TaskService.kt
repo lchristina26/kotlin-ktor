@@ -1,4 +1,4 @@
-package co.protegee.app
+package com.task.app
 
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
@@ -18,9 +18,9 @@ import io.ktor.server.netty.Netty
 import org.slf4j.LoggerFactory
 import org.slf4j.event.Level
 
-object ProtegeeService {
+object TaskService {
 
-    private val logger = LoggerFactory.getLogger(ProtegeeService::class.java)
+    private val logger = LoggerFactory.getLogger(TaskService::class.java)
     @JvmStatic
     fun main(args: Array<String>) {
         val server = embeddedServer(Netty, port = 8000) {
@@ -39,7 +39,7 @@ object ProtegeeService {
                 register(ContentType.Application.Json, JacksonConverter())
             }
 
-            ProtegeeEndpoints(this)
+            TaskEndpoints(this)
         }
 
         server.start(wait = true)

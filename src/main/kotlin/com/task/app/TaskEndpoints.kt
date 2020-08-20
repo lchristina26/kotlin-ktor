@@ -1,4 +1,4 @@
-package co.protegee.app
+package com.task.app
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import io.ktor.application.Application
@@ -9,9 +9,9 @@ import io.ktor.routing.routing
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
-class ProtegeeEndpoints(app: Application) {
+class TaskEndpoints(app: Application) {
     companion object {
-        private val logger: Logger = LoggerFactory.getLogger(ProtegeeEndpoints::class.java)
+        private val logger: Logger = LoggerFactory.getLogger(TaskEndpoints::class.java)
     }
 
     init {

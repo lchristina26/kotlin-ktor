@@ -1,0 +1,45 @@
+// jooq plugin is tough to use via Kotlin until https://github.com/etiennestuder/gradle-jooq-plugin/pull/91
+
+jooq {
+    version = "3.13.4"
+    edition = "OSS"
+
+    taskDb(sourceSets.main) {
+        jdbc {
+            driver = 'org.postgresql.Driver'
+            url = project.ext.dbUrl
+            user = project.ext.dbUser
+            password = project.ext.dbPw
+        }
+        generator {
+            database {
+                inputSchema = "public"
+                excludes = "flyway_schema_history"
+                forcedTypes {
+                    forcedType {
+                        name = 'varchar'
+                        expression = '.*'
+                        types = 'JSONB?'
+                    }
+                    forcedType {
+                        name = 'varchar'
+                        expression = '.*'
+                        types = 'INET'
+                    }
+                }
+            }
+            generate {
+                relations = true
+                deprecated = false
+                records = true
+                immutablePojos = true
+                fluentSetters = true
+            }
+            target {
+                packageName = 'com.task.jooq'
+            }
+        }
+    }
+}
+
+compileKotlin.dependsOn(generateTaskDbJooqSchemaSource)

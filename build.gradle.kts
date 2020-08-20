@@ -2,10 +2,17 @@ plugins {
     java
     kotlin("jvm") version "1.3.72"
     id("application")
+    id("nu.studer.jooq") version "4.2"
 }
 
+val dbUser by extra { "task-user" }
+val dbPw by extra { "task-pw" }
+val dbUrl by extra { "jdbc:postgresql://localhost:10001/task" }
+
+apply(from = "jooq.gradle")
+
 application {
-    mainClassName = "co.protegee.app.ProtegeeService"
+    mainClassName = "com.task.app.TaskService"
 }
 
 repositories {
@@ -20,4 +27,6 @@ dependencies {
     implementation("com.fasterxml.jackson.core:jackson-databind:2.11.0")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.11.0")
     implementation("io.ktor:ktor-jackson:1.3.2")
+    jooqRuntime("org.postgresql:postgresql:42.2.12")
+    implementation("org.jooq:jooq")
 }
